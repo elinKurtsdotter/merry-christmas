@@ -4,7 +4,7 @@ import { MarginTop } from "../App.jsx";
 
 const ClickHereToFindGem = styled.div`
   position: fixed;
-  top: 8rem;
+  top: 7rem;
   right: 12rem;
   width: 0.5rem;
   height: 0.55rem;
@@ -30,7 +30,7 @@ const ClickHereToFindGem = styled.div`
 
 const RhymeContainer = styled.div`
   position: fixed;
-  top: 8rem;
+  top: 7rem;
   right: 12rem;
   width: 30rem;
   background-color: ${(props) =>
@@ -39,7 +39,7 @@ const RhymeContainer = styled.div`
   border-radius: 10px;
   color: ${(props) => (props.$showGem ? "#84c8c7" : "transparent")};
   font-family: "Mountains of Christmas", serif;
-  font-size: 2rem;
+  font-size: 1.8rem;
   z-index: 1000;
   padding: 1rem;
   visibility: ${(props) => (props.$showGem ? "visible" : "hidden")};
