@@ -1,0 +1,38 @@
+/* #root {
+  /* max-width: 1280px; */
+  /* margin: 0 auto; */
+  /* padding: 2rem; */
+  /* text-align: center; */
+  
+  /* margin: 0;
+} */ 
+
+
+
+body {
+  cursor: none; 
+  overflow: hidden;
+}
+
+
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: red;
+  opacity: 0.8;
+  z-index: 42;
+}
+
+.cursor-dot--outline {
+  width: 36px;
+  height: 36px;
+  opacity: 0.6;
+}
+
+
