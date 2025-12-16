@@ -84,29 +84,64 @@ const InfoText = styled.div`
 
 function App() {
   const [audios] = useState(() => ({
-    song1: new Audio("/audios/christmas_wonderland.mp3"),
-    song2: new Audio("/audios/its_beginning_to_look_like_christmas.mp3"),
-    song3: new Audio("/audios/let_it_snow.mp3"),
+    song1: new Audio(
+      `${import.meta.env.BASE_URL}audios/christmas_wonderland.mp3`
+    ),
+    song2: new Audio(
+      `${
+        import.meta.env.BASE_URL
+      }audios/its_beginning_to_look_like_christmas.mp3`
+    ),
+    song3: new Audio(`${import.meta.env.BASE_URL}audios/let_it_snow.mp3`),
   }));
 
   const [currentSong, setCurrentSong] = useState(null);
 
+
+
   const playExclusive = (key) => {
-    const nextAudio = audios[key];
-    // Pause currently playing song (if different)
-    if (currentSong && currentSong !== nextAudio) {
-      currentSong.pause();
-    }
-    // Toggle same song
-    if (currentSong === nextAudio && !nextAudio.paused) {
-      nextAudio.pause();
-      setCurrentSong(null);
-    } else {
-      nextAudio.play();
-      setCurrentSong(nextAudio);
-    }
-  };
-  
+  const nextAudio = audios[key];
+
+  // If the clicked song is already playing, stop it
+  if (currentSong === nextAudio) {
+    currentSong.pause();
+    setCurrentSong(null);
+    return;
+  }
+
+  // Stop previous song if different
+  if (currentSong && currentSong !== nextAudio) {
+    currentSong.pause();
+  }
+
+  // Play next song
+  setTimeout(() => {
+    nextAudio.play().catch((err) => console.error("Audio play error:", err));
+    setCurrentSong(nextAudio);
+  }, 50); // tiny delay for Safari
+};
+  // const playExclusive = (key) => {
+  //   const nextAudio = audios[key];
+  //   // Pause currently playing song (if different)
+  //   if (currentSong && currentSong !== nextAudio) {
+  //     currentSong.pause();
+  //   }
+  //   // Toggle same song
+  //   if (currentSong === nextAudio && !nextAudio.paused) {
+  //     nextAudio.pause();
+  //     setCurrentSong(null);
+  //     return; // stop here — don’t play anything
+  //   } else {
+  //     nextAudio.play();
+  //     setCurrentSong(nextAudio);
+  //   }
+  //   console.log("nextaudio.paused:", nextAudio.paused);
+  //   // Play next song after tiny delay for Safari
+  //   setTimeout(() => {
+  //     nextAudio.play().catch((err) => console.error("Audio play error:", err));
+  //     setCurrentSong(nextAudio);
+  //   }, 50);
+  // };
   return (
     <Container>
       <Snowfall />
@@ -122,10 +157,13 @@ function App() {
       </StyledCanvasTop>
 
       {/* ------------- Star ------------- */}
-      <Star $currentSong={currentSong === audios.song1 && !audios.song1.paused} onClick={() => playExclusive("song1")} />
+      <Star
+        $currentSong={currentSong === audios.song1 && !audios.song1.paused}
+        onClick={() => playExclusive("song1")}
+      />
 
       {/* ------------- Hidden Gem ------------- */}
-      <HiddenGem  />
+      <HiddenGem />
 
       <FlexContainer>
         {/* ------------- Christmas gift ------------- */}
